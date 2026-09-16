@@ -23,9 +23,9 @@ jobs:
         run: |
           git clone https://github.com/maDU59/ProjectilesTrajectoryPreview.git upstream
           cd upstream
-          git checkout 5e76cb8c1a8a70368209fc944bcb4f28f4acf5d0
+          git checkout d4fc4d7084f192113f96fad95ba16d09c098c700
 
-      - name: Apply See your Trajectory patch
+      - name: Apply See your Trajectory 26.3 patch
         run: python3 tools/apply_rebrand.py upstream
 
       - name: Build
@@ -38,10 +38,11 @@ jobs:
         run: |
           mkdir -p dist
           JAR=$(find upstream/build/libs -maxdepth 1 -type f -name '*.jar' ! -name '*-sources.jar' | head -n 1)
-          cp "$JAR" dist/see-your-trajectory.jar
+          test -n "$JAR"
+          cp "$JAR" dist/see-your-trajectory-1.1.0+mc26.3.jar
 
       - name: Upload ready jar
         uses: actions/upload-artifact@v4
         with:
-          name: see-your-trajectory-26.2
-          path: dist/see-your-trajectory.jar
+          name: see-your-trajectory-1.1.0-mc26.3
+          path: dist/see-your-trajectory-1.1.0+mc26.3.jar
